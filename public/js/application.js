@@ -1,10 +1,20 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
-
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
-  $(#.on("click", function(event){
-    alert($(this).text());
-  })
+  $( '#talk' ).submit( function(event) {
+    event.preventDefault();
+ 
+    
+ 
+    //Using serialize
+    var url = "/?" + $(this).serialize();
+    var posting = $.post(url);
+ 
+    //Using Explicit Urls
+    // var input = $form.find('input[name="user_input"]').val();
+    // var posting = $.post('/', { user_input: input })
+ 
+    posting.done(function( data ) {
+      var content = $( data ).find( '#response' );
+      $( '#response' ).replaceWith( content );
+    });
+  });
 });
